@@ -1,0 +1,38 @@
+---
+fullname: Parsec
+shortname: coq-parsec
+opam_name: coq-parsec
+organization: liyishuai
+circleci: true
+ci_extra_dev: true
+synopsis: Monadic parser combinator library in Coq
+description: Inspired by Haskell Parsec library.
+authors:
+  - name: Yishuai Li
+    email: yishuai@cis.upenn.edu
+  - name: Azzam Althagafi
+    email: aazzam@cis.upenn.edu
+  - name: Yao Li
+    email: liyao@cis.upenn.edu
+  - name: Li-yao Xia
+    email: xialiyao@cis.upenn.edu
+  - name: Benjamin C. Pierce
+    email: bcpierce@cis.upenn.edu
+license:
+  - fullname: BSD 3-Clause "New" or "Revised" License
+    identifier: BSD-3-Clause
+dependencies:
+  - description: '[Cérès](https://github.com/Lysxia/coq-ceres)'
+    opam:
+      name: coq-ceres
+  - description: '[ExtLib](https://coq-community.org/coq-ext-lib/)'
+    opam:
+      name: coq-ext-lib
+namespace: Parsec
+opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
+supported_coq_versions:
+  text: 8.12 or later
+  opam: '{ >= "8.12~" }'
+tested_coq_opam_versions:
+  - version: 'dev'
+  - version: '8.12'
