@@ -8,9 +8,11 @@ From ExtLib Require Export
      Applicative
      EitherMonad
      Extras
+     List
      Monad
      MonadExc
      MonadState
+     Traversable
      StateMonad.
 From Ceres Require Export
      Ceres.
@@ -82,6 +84,9 @@ Section Parser.
 
   Definition many1 {T} (p : parser T) : parser (list T) := liftA2 cons p (many p).
 
+  Definition manyN {T} (n : nat) (p : parser T) : parser (list T) :=
+    sequence (repeat p n).
+
   Definition firstExpect {T} (t : P) (pr : parser T) : parser T :=
     (satisfy (fun x => t = x?);; pr)
       <|> raise ("firstExpect: " ++ to_string t ++ " not found.").
@@ -126,6 +131,7 @@ Arguments firstExpect  {_ _ _ _}.
 Arguments ifFirst      {_ _ _ _}.
 Arguments many         {_ _}.
 Arguments many1        {_ _}.
+Arguments manyN        {_ _}.
 Arguments parser       {_}.
 Arguments peek         {_}.
 Arguments satisfy      {_ _}.
