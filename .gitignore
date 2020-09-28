@@ -33,3 +33,4 @@ nlia.cache
 nra.cache
 Makefile.coq*
 *~
+*.conf
