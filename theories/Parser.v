@@ -8,6 +8,7 @@ From ExtLib Require Export
      Applicative
      EitherMonad
      Extras
+     Functor
      List
      Monad
      MonadExc
@@ -18,6 +19,7 @@ From Ceres Require Export
      Ceres.
 Export
   FunNotation
+  FunctorNotation
   ListNotations
   MonadNotation.
 Open Scope string_scope.
@@ -70,6 +72,9 @@ Section Parser.
     if f x
     then ret x
     else raise $ Some $ "Dissatisfying: " ++ to_string x.
+
+  Definition maybe {T} (p : parser T) : parser (option T) :=
+    Some <$> p <|> ret None.
 
   Fixpoint many_ {T} (acc : list T) (fuel : nat) (p : parser T) : parser (list T) :=
     match fuel with
@@ -132,11 +137,15 @@ Arguments ifFirst      {_ _ _ _}.
 Arguments many         {_ _}.
 Arguments many1        {_ _}.
 Arguments manyN        {_ _}.
+Arguments maybe        {_ _}.
 Arguments parser       {_}.
 Arguments peek         {_}.
 Arguments satisfy      {_ _}.
 Arguments until        {_ _ _}.
 Arguments untilMulti   {_ _ _}.
 
-Definition parse {T} (p : parser T) (str : string) : option string + T :=
-  evalStateT p (list_ascii_of_string str).
+Definition parse {T} (p : parser T) (str : string) : option string + T * string :=
+  match runStateT p (list_ascii_of_string str) with
+  | inl e => inl e
+  | inr (s, l) => inr (s, string_of_list_ascii l)
+  end.
