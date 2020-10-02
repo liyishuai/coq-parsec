@@ -48,20 +48,20 @@ Section Parser.
   Context `{Serialize P}.
   Context `{forall p q : P, Decidable (p = q)}.
 
-  Definition parser := stateT (list P) (sum string).
+  Definition parser := stateT (list P) (sum (option string)).
   Bind Scope parser_scope with parser.
 
   Definition anyToken : parser P :=
     xs <- get;;
     match xs with
-    | []    => raise "oneStep: expects a token."
+    | []    => raise None
     | x::xs' => put xs';; ret x
     end.
 
   Definition peek : parser P :=
     xs <- get;;
     match xs with
-    | []  => raise "peek: expects a token."
+    | []  => raise None
     | x::_ => ret x
     end.
 
@@ -69,11 +69,11 @@ Section Parser.
     x <- anyToken;;
     if f x
     then ret x
-    else raise $ "Dissatisfying: " ++ to_string x.
+    else raise $ Some $ "Dissatisfying: " ++ to_string x.
 
   Fixpoint many_ {T} (acc : list T) (fuel : nat) (p : parser T) : parser (list T) :=
     match fuel with
-    | O => raise "many_: out of fuel."
+    | O => raise $ Some "many_: out of fuel."
     | S fuel' =>
       (t <- p;; many_ (t::acc) fuel' p) <|> ret (rev' acc)
     end.
@@ -89,25 +89,25 @@ Section Parser.
 
   Definition firstExpect {T} (t : P) (pr : parser T) : parser T :=
     (satisfy (fun x => t = x?);; pr)
-      <|> raise ("firstExpect: " ++ to_string t ++ " not found.").
+      <|> raise (Some $ "firstExpect: " ++ to_string t ++ " not found.").
 
   Definition ifFirst {T} (t : P) (pr : parser T) : parser T :=
     x <- peek;;
     if t = x?
     then pr
-    else raise ("ifFirst: " ++ to_string t ++ "not found.").
+    else raise (Some $ "ifFirst: " ++ to_string t ++ "not found.").
 
   Open Scope parser_scope.
 
   Definition chooseFrom {T} : list (parser T) -> parser T :=
-    fold_right (fun p acc => p <|> acc) $ raise "chooseFrom: failed.".
+    fold_right (fun p acc => p <|> acc) $ raise $ Some "chooseFrom: failed.".
 
   Definition expect (t : P) : parser unit :=
     firstExpect t $ ret tt.
 
   Fixpoint untilMulti_ (fuel : nat) (acc lt : list P) : parser (list P) :=
     match fuel with
-    | O => raise "untilMulti_: out of fuel."
+    | O => raise $ Some "untilMulti_: out of fuel."
     | S fuel' =>
       (x <- satisfy (fun x => forallb (fun t => t <> x?) lt);;
        untilMulti_ fuel' (x :: acc) lt)
@@ -116,7 +116,7 @@ Section Parser.
 
   Definition untilMulti' (fuel : nat) (lt : list P) : parser (list P) :=
     (res <- untilMulti_ fuel [] lt;; peek;; ret res)
-      <|> raise ("untilMulti': " ++ to_string lt ++ " not found.").
+      <|> raise None.
 
   Definition untilMulti : list P -> parser (list P) := untilMulti' bigNumber.
 
@@ -135,8 +135,8 @@ Arguments manyN        {_ _}.
 Arguments parser       {_}.
 Arguments peek         {_}.
 Arguments satisfy      {_ _}.
-Arguments until        {_ _}.
-Arguments untilMulti   {_ _}.
+Arguments until        {_ _ _}.
+Arguments untilMulti   {_ _ _}.
 
-Definition parse {T} (p : parser T) (str : string) : string + T :=
+Definition parse {T} (p : parser T) (str : string) : option string + T :=
   evalStateT p (list_ascii_of_string str).

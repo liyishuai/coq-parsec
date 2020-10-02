@@ -53,12 +53,12 @@ Definition parseDec : parser N :=
   s <- string_of_list_ascii <$> many (satisfy isdigit);;
   match DecimalString.NilZero.uint_of_string s with
   | Some i => ret (N.of_uint i)
-  | None   => raise (s ++ " is not a decimal number.")
+  | None => peek;; raise (Some "Not a decimal number.")
   end.
 
 Definition parseHex : parser N :=
   s <- map_string tolower ∘ string_of_list_ascii <$> many (satisfy ishexdig);;
   match HexadecimalString.NilZero.uint_of_string s with
   | Some i => ret (N.of_hex_uint i)
-  | None   => raise (s ++ " is not a hexadecimal number.")
+  | None => peek;; raise (Some "Not a hexadecimal number.")
   end.
