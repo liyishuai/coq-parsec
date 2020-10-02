@@ -1,4 +1,5 @@
 From Coq Require
+     Bool
      DecimalString
      HexadecimalString.
 From Coq Require Export
@@ -11,6 +12,7 @@ From ExtLib Require Export
 From Parsec Require Export
      Parser.
 Export FunctorNotation.
+Open Scope lazy_bool_scope.
 
 Definition ltb (a b : ascii) : bool :=
   (N_of_ascii a <?  N_of_ascii b)%N.
@@ -22,10 +24,10 @@ Infix "<?"  := ltb : char_scope.
 Infix "<=?" := leb : char_scope.
 
 Definition isupper (a : ascii) : bool :=
-  (("A" <=? a) && (a <=? "Z"))%char.
+  (("A" <=? a) &&& (a <=? "Z"))%char.
 
 Definition islower (a : ascii) : bool :=
-  (("a" <=? a) && (a <=? "z"))%char.
+  (("a" <=? a) &&& (a <=? "z"))%char.
 
 Definition toupper (a : ascii) : ascii :=
   if islower a
@@ -44,7 +46,7 @@ Definition isdigit : ascii -> bool :=
   in_string "0123456789".
 
 Definition ishexdig (a : ascii) : bool :=
-  isdigit a || in_string "abcdefABCDEF" a.
+  isdigit a ||| in_string "abcdefABCDEF" a.
 
 Definition map_string (f : ascii -> ascii) : string -> string :=
   string_of_list_ascii ∘ map f ∘ list_ascii_of_string.

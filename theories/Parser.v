@@ -102,8 +102,8 @@ Section Parser.
   Definition chooseFrom {T} : list (parser T) -> parser T :=
     fold_right (fun p acc => p <|> acc) $ raise $ Some "chooseFrom: failed.".
 
-  Definition expect (t : P) : parser unit :=
-    firstExpect t $ ret tt.
+  Definition expect (t : P) : parser P :=
+    firstExpect t $ ret t.
 
   Fixpoint untilMulti_ (fuel : nat) (acc lt : list P) : parser (list P) :=
     match fuel with
