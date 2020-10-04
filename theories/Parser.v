@@ -93,8 +93,7 @@ Section Parser.
     sequence (repeat p n).
 
   Definition firstExpect {T} (t : P) (pr : parser T) : parser T :=
-    (satisfy (fun x => t = x?);; pr)
-      <|> raise (Some $ "firstExpect: " ++ to_string t ++ " not found.").
+    (satisfy (fun x => t = x?);; pr).
 
   Definition ifFirst {T} (t : P) (pr : parser T) : parser T :=
     x <- peek;;

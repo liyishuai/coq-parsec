@@ -27,3 +27,12 @@ Proof. reflexivity. Qed.
 Goal parse (string_of_list_ascii <$> manyN 3 (satisfy isdigit))
      "40" = inl None.
 Proof. reflexivity. Qed.
+
+Fixpoint expectString (s : string) : parser string :=
+  match s with
+  | "" => ret ""
+  | String a s' => liftA2 String (expect a) (expectString s')
+  end.
+
+Goal parse (expectString "HTTP") "" = inl None.
+Proof. reflexivity. Qed.
