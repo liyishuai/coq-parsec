@@ -34,6 +34,14 @@ jobs:
         name: Build, test, and install package
         command: opam install -t .
     - run:
+        name: Test dependants
+        command: |
+          PINS=$(opam list -s --pinned --columns=package | xargs | tr ' ' ,)
+          PACKAGES=`opam list -s --depends-on coq-parsec --coinstallable-with $PINS`
+          if [ -n "$PACKAGES" ]
+          then opam install -t $PACKAGES
+          fi
+    - run:
         name: Uninstall package
         command: opam uninstall .
 

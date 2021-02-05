@@ -14,8 +14,8 @@ synopsis: "Monadic parser combinator library in Coq"
 description: """
 Inspired by Haskell Parsec library."""
 
-build: [make "-j%{jobs}%" ]
-run-test: [make "test"]
+build: [make "-j%{jobs}%"]
+run-test: [make "-j%{jobs}%" "test"]
 install: [make "install"]
 depends: [
   "coq" { >= "8.12~" }
@@ -24,6 +24,9 @@ depends: [
 ]
 
 tags: [
+  "category:Computer Science/Data Types and Data Structures"
+  "keyword:string"
+  "date:2020-10-04"
   "logpath:Parsec"
 ]
 authors: [

@@ -5,6 +5,7 @@ opam_name: coq-parsec
 organization: liyishuai
 circleci: true
 ci_extra_dev: true
+ci_test_dependants: true
 synopsis: Monadic parser combinator library in Coq
 description: Inspired by Haskell Parsec library.
 authors:
@@ -30,6 +31,12 @@ dependencies:
     opam:
       name: coq-ext-lib
       version: '{ >= "0.11.3" }'
+test_target: test
+categories:
+  - name: Computer Science/Data Types and Data Structures
+keywords:
+  - name: string
+date: 2020-10-04
 namespace: Parsec
 opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
 supported_coq_versions:
