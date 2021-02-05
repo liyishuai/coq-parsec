@@ -25,9 +25,11 @@ dependencies:
   - description: '[Cérès](https://github.com/Lysxia/coq-ceres)'
     opam:
       name: coq-ceres
+      version: '{ >= "0.4.0" }'
   - description: '[ExtLib](https://coq-community.org/coq-ext-lib/)'
     opam:
       name: coq-ext-lib
+      version: '{ >= "0.11.3" }'
 namespace: Parsec
 opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
 supported_coq_versions:

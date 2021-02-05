@@ -1,3 +1,6 @@
+# This file was generated from `meta.yml`, please do not edit manually.
+# Follow the instructions on https://github.com/coq-community/templates to regenerate.
+
 opam-version: "2.0"
 maintainer: "Yishuai Li <yishuai@cis.upenn.edu>"
 version: "dev"
@@ -16,8 +19,8 @@ run-test: [make "test"]
 install: [make "install"]
 depends: [
   "coq" { >= "8.12~" }
-  "coq-ceres" 
-  "coq-ext-lib" 
+  "coq-ceres" { >= "0.4.0" }
+  "coq-ext-lib" { >= "0.11.3" }
 ]
 
 tags: [
