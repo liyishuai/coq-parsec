@@ -68,11 +68,17 @@ Section Parser.
     | x::_ => ret x
     end.
 
+  Definition guard {T} (f : T -> bool) (pT : parser T) : parser T :=
+    t <- pT;;
+    if f t
+    then ret t
+    else raise $ Some "Guard failed".
+
   Definition satisfy (f : P -> bool) : parser P :=
     x <- anyToken;;
     if f x
     then ret x
-    else raise $ Some $ "Dissatisfying: " ++ to_string x.
+    else raise $ Some $ "Unsatisfying: " ++ to_string x.
 
   Definition maybe {T} (p : parser T) : parser (option T) :=
     Some <$> p <|> ret None.
@@ -80,8 +86,7 @@ Section Parser.
   Fixpoint many_ {T} (acc : list T) (fuel : nat) (p : parser T) : parser (list T) :=
     match fuel with
     | O => raise $ Some "many_: out of fuel."
-    | S fuel' =>
-      (t <- p;; many_ (t::acc) fuel' p) <|> ret (rev' acc)
+    | S fuel' => (t <- p;; many_ (t::acc) fuel' p) <|> ret (rev' acc)
     end.
 
   Definition many' {T} : nat -> parser T -> parser (list T) := many_ [].
@@ -97,10 +102,8 @@ Section Parser.
     (satisfy (fun x => t = x?);; pr).
 
   Definition ifFirst {T} (t : P) (pr : parser T) : parser T :=
-    x <- peek;;
-    if t = x?
-    then pr
-    else raise (Some $ "ifFirst: " ++ to_string t ++ "not found.").
+    (guard (fun x => t = x?) peek;; pr)
+      <|> raise (Some $ "ifFirst: " ++ to_string t ++ "not found.").
 
   Open Scope parser_scope.
 
@@ -134,6 +137,7 @@ Arguments chooseFrom   {_ _}.
 Arguments expect       {_ _ _}.
 Arguments firstExpect  {_ _ _ _}.
 Arguments ifFirst      {_ _ _ _}.
+Arguments guard        {_ _}.
 Arguments many         {_ _}.
 Arguments many1        {_ _}.
 Arguments manyN        {_ _}.
