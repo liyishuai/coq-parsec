@@ -39,9 +39,11 @@ jobs:
         command: |
           PINS=$(opam list -s --pinned --columns=package | xargs | tr ' ' ,)
           PACKAGES=`opam list -s --depends-on coq-parsec --coinstallable-with $PINS`
-          if [ -n "$PACKAGES" ]
-          then opam install -t $PACKAGES
-          fi
+          for PACKAGE in $PACKAGES
+          do DEPS_FAILED=false
+             opam install --deps-only $PACKAGE || DEPS_FAILED=true
+             [ $DEPS_FAILED == true ] || opam install -t $PACKAGE
+          done
     - run:
         name: Uninstall package
         command: opam uninstall .
@@ -59,3 +61,6 @@ workflows:
     - build:
         name: "Coq 8.13-ocaml-4.11-flambda"
         coq: "coqorg/coq:8.13-ocaml-4.11-flambda"
+    - build:
+        name: "Coq 8.14-ocaml-4.11-flambda"
+        coq: "coqorg/coq:8.14-ocaml-4.11-flambda"
