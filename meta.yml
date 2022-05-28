@@ -39,11 +39,13 @@ date: 2022-01-17
 namespace: Parsec
 opam-file-maintainer: 'Yishuai Li <yishuai@cis.upenn.edu>'
 supported_coq_versions:
-  text: 8.12 or later
-  opam: '{ >= "8.12~" }'
+  text: 8.14 or later
+  opam: '{ >= "8.14~" }'
 tested_coq_opam_versions:
   - version: 'dev-ocaml-4.12-flambda'
-  - version: '8.12-ocaml-4.11-flambda'
-  - version: '8.13-ocaml-4.12-flambda'
   - version: '8.14-ocaml-4.12-flambda'
   - version: '8.15-ocaml-4.12-flambda'
+circleci_after_script: |2-
+      - run:
+          name: Reduce parallel jobs
+          command: echo export OPAMJOBS=1 >> $BASH_ENV

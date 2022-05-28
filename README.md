@@ -23,7 +23,7 @@ Inspired by Haskell Parsec library.
   - Li-yao Xia
   - Benjamin C. Pierce
 - License: [BSD 3-Clause "New" or "Revised" License](LICENSE)
-- Compatible Coq versions: 8.12 or later
+- Compatible Coq versions: 8.14 or later
 - Additional dependencies:
   - [Cérès](https://github.com/Lysxia/coq-ceres)
   - [ExtLib](https://coq-community.org/coq-ext-lib/)

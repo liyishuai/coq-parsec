@@ -25,8 +25,10 @@ Export
 Open Scope string_scope.
 Open Scope monad_scope.
 Open Scope program_scope.
+#[global]
 Existing Instance Monad_stateT.
 
+#[global]
 Program Instance Decidable_not {P} `{Decidable P} : Decidable (~ P) := {
   Decidable_witness := negb Decidable_witness
 }.
