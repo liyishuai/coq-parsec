@@ -45,7 +45,3 @@ tested_coq_opam_versions:
   - version: 'dev-ocaml-4.12-flambda'
   - version: '8.14-ocaml-4.12-flambda'
   - version: '8.15-ocaml-4.12-flambda'
-circleci_after_script: |2-
-      - run:
-          name: Reduce parallel jobs
-          command: echo export OPAMJOBS=1 >> $BASH_ENV

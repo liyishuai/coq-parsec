@@ -10,9 +10,9 @@ jobs:
         type: string
     docker:
     - image: <<parameters.coq>>
-    resource_class: medium
+    resource_class: large
     environment:
-      OPAMJOBS: 2
+      OPAMJOBS: 4
       OPAMVERBOSE: 1
       OPAMYES: true
       TERM: xterm
@@ -26,17 +26,13 @@ jobs:
         command: |
           opam update
           opam install --deps-only .
-        no_output_timeout: 1h
     - run:
         name: List installed packages
         command: opam list
     - run:
         name: Build, test, and install package
         command: opam install -t .
-        no_output_timeout: 1h
-    - run:
-        name: Reduce parallel jobs
-        command: echo export OPAMJOBS=1 >> $BASH_ENV
+
     - run:
         name: Test dependants
         command: |
@@ -47,7 +43,6 @@ jobs:
              opam install --deps-only $PACKAGE || DEPS_FAILED=true
              [ $DEPS_FAILED == true ] || opam install -t $PACKAGE
           done
-        no_output_timeout: 1h
     - run:
         name: Uninstall package
         command: opam uninstall .
