@@ -4,10 +4,10 @@ Follow the instructions on https://github.com/coq-community/templates to regener
 --->
 # Parsec
 
-[![CircleCI][circleci-shield]][circleci-link]
+[![Docker CI][docker-action-shield]][docker-action-link]
 
-[circleci-shield]: https://circleci.com/gh/liyishuai/coq-parsec.svg?style=svg
-[circleci-link]:   https://circleci.com/gh/liyishuai/coq-parsec
+[docker-action-shield]: https://github.com/liyishuai/coq-parsec/workflows/Docker%20CI/badge.svg?branch=master
+[docker-action-link]: https://github.com/liyishuai/coq-parsec/actions?query=workflow:"Docker%20CI"
 
 
 
@@ -17,11 +17,11 @@ Inspired by Haskell Parsec library.
 ## Meta
 
 - Author(s):
-  - Yishuai Li
+  - Yishuai Li [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0002-5728-5903)
   - Azzam Althagafi
-  - Yao Li
-  - Li-yao Xia
-  - Benjamin C. Pierce
+  - Yao Li [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-8720-883X)
+  - Li-yao Xia [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0003-2673-4400)
+  - Benjamin C. Pierce [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-7839-1636)
 - License: [BSD 3-Clause "New" or "Revised" License](LICENSE)
 - Compatible Coq versions: 8.14 or later
 - Additional dependencies:
