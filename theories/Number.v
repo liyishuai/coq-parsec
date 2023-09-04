@@ -14,15 +14,6 @@ From Parsec Require Export
 Export FunctorNotation.
 Open Scope lazy_bool_scope.
 
-Definition ltb (a b : ascii) : bool :=
-  (N_of_ascii a <?  N_of_ascii b)%N.
-
-Definition leb (a b : ascii) : bool :=
-  (N_of_ascii a <=? N_of_ascii b)%N.
-
-Infix "<?"  := ltb : char_scope.
-Infix "<=?" := leb : char_scope.
-
 Definition isupper (a : ascii) : bool :=
   (("A" <=? a) &&& (a <=? "Z"))%char.
 

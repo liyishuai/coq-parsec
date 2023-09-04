@@ -28,17 +28,6 @@ Open Scope program_scope.
 #[global]
 Existing Instance Monad_stateT.
 
-#[global]
-Program Instance Decidable_not {P} `{Decidable P} : Decidable (~ P) := {
-  Decidable_witness := negb Decidable_witness
-}.
-Next Obligation.
-  split; intro.
-  - apply negb_true_iff in H0.
-    eapply Decidable_complete_alt; intuition.
-  - erewrite Decidable_sound_alt; intuition.
-Qed.
-
 Notation "P '?'" := (decide P) (at level 100).
 
 Definition bigNumber : nat := 5000.
