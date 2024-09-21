@@ -3,6 +3,7 @@ From Coq Require Export
      Bool
      DecidableClass
      List
+     Ascii
      String.
 From ExtLib Require Export
      Applicative
@@ -139,8 +140,15 @@ Arguments satisfy      {_ _}.
 Arguments until        {_ _ _}.
 Arguments untilMulti   {_ _ _}.
 
-Definition parse {T} (p : parser T) (str : string) : option string + T * string :=
-  match runStateT p (list_ascii_of_string str) with
-  | inl e => inl e
+Definition parse' {T} (p: parser T) (acc: list ascii) (str: string)
+  : option string + T * list ascii :=
+  match runStateT p (acc ++ list_ascii_of_string str)%list with
+  | inl e  => inl e
+  | inr sl => inr sl
+  end.
+
+Definition parse {T} (p: parser T) (str: string) : option string + T * string :=
+  match parse' p [] str with
+  | inl e      => inl e
   | inr (s, l) => inr (s, string_of_list_ascii l)
   end.
