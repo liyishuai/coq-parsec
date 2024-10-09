@@ -1,0 +1,20 @@
+(alias
+ (name runtest)
+ (deps
+  (package coq-parsec)
+  (alias_rec all)))
+
+(rule
+ (alias runtest)
+ (action
+  (run coqc %{dep:Chunk.v})))
+
+(rule
+ (alias runtest)
+ (action
+  (run coqc %{dep:Number.v})))
+
+(rule
+ (alias runtest)
+ (action
+  (run coqc %{dep:Token.v})))

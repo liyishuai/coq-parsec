@@ -14,10 +14,9 @@ synopsis: "Monadic parser combinator library in Coq"
 description: """
 Inspired by Haskell Parsec library."""
 
-build: [make "-j%{jobs}%"]
-run-test: [make "-j%{jobs}%" "test"]
-install: [make "install"]
+build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
+  "dune" {>= "3.6"}
   "coq" { >= "8.14~" }
   "coq-ceres" { >= "0.4.0" }
   "coq-ext-lib" { >= "0.11.3" }

@@ -6,8 +6,8 @@ Follow the instructions on https://github.com/coq-community/templates to regener
 
 [![Docker CI][docker-action-shield]][docker-action-link]
 
-[docker-action-shield]: https://github.com/liyishuai/coq-parsec/workflows/Docker%20CI/badge.svg?branch=master
-[docker-action-link]: https://github.com/liyishuai/coq-parsec/actions?query=workflow:"Docker%20CI"
+[docker-action-shield]: https://github.com/liyishuai/coq-parsec/actions/workflows/docker-action.yml/badge.svg?branch=master
+[docker-action-link]: https://github.com/liyishuai/coq-parsec/actions/workflows/docker-action.yml
 
 
 
@@ -17,16 +17,17 @@ Inspired by Haskell Parsec library.
 ## Meta
 
 - Author(s):
-  - Yishuai Li [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0002-5728-5903)
+  - Yishuai Li [<img src="https://zenodo.org/static/images/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0002-5728-5903)
   - Azzam Althagafi
-  - Yao Li [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-8720-883X)
-  - Li-yao Xia [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0003-2673-4400)
-  - Benjamin C. Pierce [<img src="https://zenodo.org/static/img/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-7839-1636)
+  - Yao Li [<img src="https://zenodo.org/static/images/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-8720-883X)
+  - Li-yao Xia [<img src="https://zenodo.org/static/images/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0003-2673-4400)
+  - Benjamin C. Pierce [<img src="https://zenodo.org/static/images/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-7839-1636)
 - License: [BSD 3-Clause "New" or "Revised" License](LICENSE)
 - Compatible Coq versions: 8.14 or later
 - Additional dependencies:
   - [Cérès](https://github.com/Lysxia/coq-ceres)
   - [ExtLib](https://coq-community.org/coq-ext-lib/)
+  - [Dune](https://dune.build) 3.6 or later
 - Coq namespace: `Parsec`
 - Related publication(s): none
 
@@ -45,8 +46,8 @@ To instead build and install manually, do:
 ``` shell
 git clone https://github.com/liyishuai/coq-parsec.git
 cd coq-parsec
-make   # or make -j <number-of-cores-on-your-machine> 
-make install
+dune build
+dune install
 ```
 
 
