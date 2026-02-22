@@ -23,12 +23,12 @@ Inspired by Haskell Parsec library.
   - Li-yao Xia [<img src="https://zenodo.org/static/images/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0003-2673-4400)
   - Benjamin C. Pierce [<img src="https://zenodo.org/static/images/orcid.svg" height="14px" alt="ORCID logo" />](https://orcid.org/0000-0001-7839-1636)
 - License: [BSD 3-Clause "New" or "Revised" License](LICENSE)
-- Compatible Coq versions: 8.14 or later
+- Compatible Rocq/Coq versions: 8.14 or later
 - Additional dependencies:
   - [Cérès](https://github.com/Lysxia/coq-ceres)
   - [ExtLib](https://coq-community.org/coq-ext-lib/)
   - [Dune](https://dune.build) 3.6 or later
-- Coq namespace: `Parsec`
+- Rocq/Coq namespace: `Parsec`
 - Related publication(s): none
 
 ## Building and installation instructions
@@ -37,15 +37,19 @@ The easiest way to install the latest released version of Parsec
 is via [OPAM](https://opam.ocaml.org/doc/Install.html):
 
 ```shell
-opam repo add coq-released https://coq.inria.fr/opam/released
+opam repo add rocq-released https://rocq-prover.org/opam/released
 opam install coq-parsec
 ```
 
-To instead build and install manually, do:
+To instead build and install manually, you need to make sure that all the
+libraries this development depends on are installed.  The easiest way to do that
+is still to rely on opam:
 
 ``` shell
 git clone https://github.com/liyishuai/coq-parsec.git
 cd coq-parsec
+opam repo add rocq-released https://rocq-prover.org/opam/released
+opam install --deps-only .
 dune build
 dune install
 ```
